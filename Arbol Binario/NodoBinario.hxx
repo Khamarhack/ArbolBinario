@@ -1,4 +1,5 @@
 // NodoBinario.hxx
+// NodoBinario.hxx
 #include "NodoBinario.h"
 #include <queue>
 #include <iostream>
@@ -20,7 +21,7 @@ T& NodoBinario<T>::obtenerDato() {
 
 // Asigna un valor al nodo
 template<class T>
-void NodoBinario<T>::fijarDato(T& val) {
+void NodoBinario<T>::fijarDato(T val) {
     this->dato = val;
 }
 
@@ -51,7 +52,7 @@ void NodoBinario<T>::fijarHijoDer(NodoBinario<T> *der) {
 // Calcula la altura del nodo
 template<class T>
 int NodoBinario<T>::altura() {
-    if (this == NULL) return 0;
+    if (!this) return 0;
     int alturaIzq = this->hijoIzq ? this->hijoIzq->altura() : 0;
     int alturaDer = this->hijoDer ? this->hijoDer->altura() : 0;
     return 1 + max(alturaIzq, alturaDer);
@@ -60,7 +61,7 @@ int NodoBinario<T>::altura() {
 // Calcula el tamaño del subárbol con raíz en este nodo
 template<class T>
 int NodoBinario<T>::tamano() {
-    if (this == NULL) return 0;
+    if (!this) return 0;
     int tamIzq = this->hijoIzq ? this->hijoIzq->tamano() : 0;
     int tamDer = this->hijoDer ? this->hijoDer->tamano() : 0;
     return 1 + tamIzq + tamDer;
@@ -68,16 +69,16 @@ int NodoBinario<T>::tamano() {
 
 // Inserta un valor en el subárbol de forma recursiva
 template<class T>
-void NodoBinario<T>::insertar(T& val) {
+void NodoBinario<T>::insertar(T val) {
     if (val > this->dato) {
-        if (this->hijoDer == NULL) {
+        if (!this->hijoDer) {
             this->hijoDer = new NodoBinario<T>();
             this->hijoDer->fijarDato(val);
         } else {
             this->hijoDer->insertar(val);
         }
     } else if (val < this->dato) {
-        if (this->hijoIzq == NULL) {
+        if (!this->hijoIzq) {
             this->hijoIzq = new NodoBinario<T>();
             this->hijoIzq->fijarDato(val);
         } else {
@@ -88,8 +89,8 @@ void NodoBinario<T>::insertar(T& val) {
 
 // Busca un nodo con el valor dado
 template<class T>
-NodoBinario<T>* NodoBinario<T>::buscar(T& val) {
-    if (this == NULL || this->dato == val) return this;
+NodoBinario<T>* NodoBinario<T>::buscar(T val) {
+    if (!this || this->dato == val) return this;
     if (val < this->dato) return this->hijoIzq ? this->hijoIzq->buscar(val) : NULL;
     return this->hijoDer ? this->hijoDer->buscar(val) : NULL;
 }

@@ -1,5 +1,9 @@
-// NodoBinario.hxx
-// NodoBinario.hxx
+/*******************************************
+Fecha: 26 marzo 2025
+Autor: Santiago Camargo
+Tema: Taller Arboles
+Estructuras de datos
+******************************************/
 #include "NodoBinario.h"
 #include <queue>
 #include <iostream>

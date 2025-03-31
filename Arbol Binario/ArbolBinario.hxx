@@ -1,4 +1,9 @@
-// ArbolBinario.hxx
+/*******************************************
+Fecha: 26 marzo 2025
+Autor: Santiago Camargo
+Tema: Taller Arboles
+Estructuras de datos
+******************************************/
 #include "ArbolBinario.h"
 #include "NodoBinario.h"
 

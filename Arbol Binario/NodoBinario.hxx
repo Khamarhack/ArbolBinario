@@ -1,17 +1,18 @@
 // NodoBinario.hxx
 #include "NodoBinario.h"
 #include <queue>
+#include <iostream>
 
 using namespace std;
 
-// Constructor por defecto
+// Constructor por defecto, inicializa los hijos como NULL
 template<class T>
 NodoBinario<T>::NodoBinario() {
     this->hijoIzq = NULL;
     this->hijoDer = NULL;
 }
 
-// Devuelve el dato del nodo
+// Retorna el dato almacenado en el nodo
 template<class T>
 T& NodoBinario<T>::obtenerDato() {
     return this->dato;
@@ -23,13 +24,13 @@ void NodoBinario<T>::fijarDato(T& val) {
     this->dato = val;
 }
 
-// Devuelve el hijo izquierdo
+// Retorna el hijo izquierdo
 template<class T>
 NodoBinario<T>* NodoBinario<T>::obtenerHijoIzq() {
     return this->hijoIzq;
 }
 
-// Devuelve el hijo derecho
+// Retorna el hijo derecho
 template<class T>
 NodoBinario<T>* NodoBinario<T>::obtenerHijoDer() {
     return this->hijoDer;
@@ -50,33 +51,33 @@ void NodoBinario<T>::fijarHijoDer(NodoBinario<T> *der) {
 // Calcula la altura del nodo
 template<class T>
 int NodoBinario<T>::altura() {
-    if (!this) return 0;
+    if (this == NULL) return 0;
     int alturaIzq = this->hijoIzq ? this->hijoIzq->altura() : 0;
     int alturaDer = this->hijoDer ? this->hijoDer->altura() : 0;
     return 1 + max(alturaIzq, alturaDer);
 }
 
-// Calcula el tamaño del subárbol
+// Calcula el tamaño del subárbol con raíz en este nodo
 template<class T>
 int NodoBinario<T>::tamano() {
-    if (!this) return 0;
-    int tamanoIzq = this->hijoIzq ? this->hijoIzq->tamano() : 0;
-    int tamanoDer = this->hijoDer ? this->hijoDer->tamano() : 0;
-    return 1 + tamanoIzq + tamanoDer;
+    if (this == NULL) return 0;
+    int tamIzq = this->hijoIzq ? this->hijoIzq->tamano() : 0;
+    int tamDer = this->hijoDer ? this->hijoDer->tamano() : 0;
+    return 1 + tamIzq + tamDer;
 }
 
-// Inserta un valor en el subárbol
+// Inserta un valor en el subárbol de forma recursiva
 template<class T>
 void NodoBinario<T>::insertar(T& val) {
     if (val > this->dato) {
-        if (!this->hijoDer) {
+        if (this->hijoDer == NULL) {
             this->hijoDer = new NodoBinario<T>();
             this->hijoDer->fijarDato(val);
         } else {
             this->hijoDer->insertar(val);
         }
     } else if (val < this->dato) {
-        if (!this->hijoIzq) {
+        if (this->hijoIzq == NULL) {
             this->hijoIzq = new NodoBinario<T>();
             this->hijoIzq->fijarDato(val);
         } else {
@@ -88,22 +89,21 @@ void NodoBinario<T>::insertar(T& val) {
 // Busca un nodo con el valor dado
 template<class T>
 NodoBinario<T>* NodoBinario<T>::buscar(T& val) {
-    if (this->dato == val) return this;
-    if (val < this->dato && this->hijoIzq) return this->hijoIzq->buscar(val);
-    if (val > this->dato && this->hijoDer) return this->hijoDer->buscar(val);
-    return NULL;
+    if (this == NULL || this->dato == val) return this;
+    if (val < this->dato) return this->hijoIzq ? this->hijoIzq->buscar(val) : NULL;
+    return this->hijoDer ? this->hijoDer->buscar(val) : NULL;
 }
 
-// Encuentra el nodo con el menor valor
-template<class T>
-NodoBinario<T>* NodoBinario<T>::extremo_izq() {
-    return this->hijoIzq ? this->hijoIzq->extremo_izq() : this;
-}
-
-// Encuentra el nodo con el mayor valor
+// Retorna el nodo con el valor más alto en el subárbol
 template<class T>
 NodoBinario<T>* NodoBinario<T>::extremo_der() {
     return this->hijoDer ? this->hijoDer->extremo_der() : this;
+}
+
+// Retorna el nodo con el valor más bajo en el subárbol
+template<class T>
+NodoBinario<T>* NodoBinario<T>::extremo_izq() {
+    return this->hijoIzq ? this->hijoIzq->extremo_izq() : this;
 }
 
 // Recorrido preorden
@@ -122,7 +122,7 @@ void NodoBinario<T>::inOrden() {
     if (this->hijoDer) this->hijoDer->inOrden();
 }
 
-// Recorrido postorden
+// Recorrido posorden
 template<class T>
 void NodoBinario<T>::posOrden() {
     if (this->hijoIzq) this->hijoIzq->posOrden();
@@ -130,7 +130,7 @@ void NodoBinario<T>::posOrden() {
     cout << this->dato << " ";
 }
 
-// Recorrido por niveles
+// Recorrido por niveles utilizando una cola
 template<class T>
 void NodoBinario<T>::nivelOrden() {
     queue<NodoBinario<T>*> cola;
@@ -143,5 +143,4 @@ void NodoBinario<T>::nivelOrden() {
         if (actual->hijoDer) cola.push(actual->hijoDer);
     }
 }
-
 

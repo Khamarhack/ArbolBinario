@@ -7,9 +7,9 @@ using namespace std;
 template<class T>
 class NodoBinario {
 protected:
-    T dato;
-    NodoBinario<T> *hijoIzq;
-    NodoBinario<T> *hijoDer;
+    T dato; // Dato almacenado en el nodo
+    NodoBinario<T> *hijoIzq; // Hijo izquierdo
+    NodoBinario<T> *hijoDer; // Hijo derecho
 
 public:
     // Constructor por defecto
@@ -18,7 +18,7 @@ public:
     // Obtiene el dato almacenado en el nodo
     T& obtenerDato();
     
-    // Asigna un valor al nodo
+    // Establece el dato del nodo
     void fijarDato(T& val);
     
     // Obtiene el hijo izquierdo
@@ -27,34 +27,34 @@ public:
     // Obtiene el hijo derecho
     NodoBinario<T>* obtenerHijoDer();
     
-    // Establece el hijo izquierdo
+    // Fija el hijo izquierdo
     void fijarHijoIzq(NodoBinario<T> *izq);
     
-    // Establece el hijo derecho
+    // Fija el hijo derecho
     void fijarHijoDer(NodoBinario<T> *der);
     
-    // Calcula la altura del subárbol
+    // Calcula la altura del nodo
     int altura();
     
-    // Calcula el tamaño del subárbol
+    // Calcula el tamaño del subárbol con raíz en este nodo
     int tamano();
     
-    // Inserta un nuevo valor en el subárbol
+    // Inserta un valor en el subárbol con raíz en este nodo
     void insertar(T& val);
     
-    // Busca un nodo con un valor específico
+    // Busca un nodo con el valor dado en el subárbol
     NodoBinario<T>* buscar(T& val);
     
-    // Recorridos del subárbol
+    // Recorridos del árbol
     void preOrden();
     void inOrden();
     void posOrden();
     void nivelOrden();
     
-    // Encuentra el nodo con el valor más bajo en el subárbol
+    // Obtiene el nodo con el valor más bajo en el subárbol
     NodoBinario<T>* extremo_izq();
     
-    // Encuentra el nodo con el valor más alto en el subárbol
+    // Obtiene el nodo con el valor más alto en el subárbol
     NodoBinario<T>* extremo_der();
 };
 
